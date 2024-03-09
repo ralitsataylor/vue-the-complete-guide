@@ -11,7 +11,7 @@ const app = Vue.createApp({
         const that = this;
         setTimeout(() => {
           that.number = 0;
-          console.log(thats.number);
+          console.log(that.number);
         }, 5000);
       }
     },
