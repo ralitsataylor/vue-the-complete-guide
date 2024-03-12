@@ -6,17 +6,23 @@ const app = Vue.createApp({
   data() {
     return {
       playerHealth: 100,
-      mosterHealth: 100,
+      monsterHealth: 100,
     };
+  },
+  computed: {
+    monsterBarStyles() {
+      return { width: this.monsterHealth + "%" };
+    },
+    playerBarStyles() {
+      return { width: this.playerHealth + "%" };
+    },
   },
   methods: {
     attackMonster() {
       // Formula for calculating a Random Number between 5 and 12
       const attackValue = getRandomValue(5, 12);
-      this.mosterHealth -= attackValue;
-      console.log(this.mosterHealth);
+      this.monsterHealth -= attackValue;
       this.attackPlayer();
-      console.log(this.playerHealth);
     },
     attackPlayer() {
       // Formula for calculating a Random Number between 8 and 15
