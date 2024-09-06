@@ -3,7 +3,7 @@
     <li v-for="resource in storedResources" :key="resource">
       <p>{{ resource.id }}</p>
       <p>{{ resource.title }}</p>
-      <p>{{ resource.descriotion }}</p>
+      <p>{{ resource.description }}</p>
       <p>{{ resource.link }}</p>
     </li>
   </ul>
