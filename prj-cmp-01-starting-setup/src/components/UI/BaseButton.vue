@@ -6,21 +6,21 @@
 export default {
   props: {
     type: {
-        type: String,
-        default: 'default',
-        required: true,
+      type: String,
+      default: 'default',
+      required: true,
     },
     mode: {
-        type: String,
-        default: 'none',
-        required: true,
+      type: String,
+      default: 'none',
+      required: true,
     },
     caption: {
-        type: String,
-        default: 'Button',
-        required: true,
-    }
-  }
+      type: String,
+      default: 'Button',
+      required: true,
+    },
+  },
 };
 </script>
 
