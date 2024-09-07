@@ -1,18 +1,13 @@
 <template>
-  <button :type="type" :class="mode">{{ caption }}</button>
+  <button :class="mode">{{ caption }}</button>
 </template>
 
 <script>
 export default {
   props: {
-    type: {
-      type: String,
-      default: 'default',
-      required: true,
-    },
     mode: {
       type: String,
-      default: 'none',
+      default: 'default',
       required: true,
     },
     caption: {
