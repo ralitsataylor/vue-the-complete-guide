@@ -32,7 +32,7 @@ export default {
   },
   data() {
     return {
-      result: [],
+      results: [],
     };
   },
   methods: {
@@ -58,6 +58,9 @@ export default {
         });
     },
   },
+  mounted() {
+    this.loadExperiences();
+  }
 };
 </script>
 
