@@ -35,6 +35,11 @@ const router = createRouter({
         default: UsersList,
         footer: UsersFooter,
       },
+      beforeEnter(to, from, next) {
+        console.log('Users before enter');
+        console.log(to, from);
+        next();
+      },
     }, // our-domamin.com/users => UsersList
     { path: '/:notFound(.*)', component: NotFound }, // our-domamin.com/something => NotFound
   ],
