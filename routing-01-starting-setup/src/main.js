@@ -64,6 +64,9 @@ router.beforeEach(function (to, from, next) {
   console.log(to, from);
   if (to.meta.needsAuth) {
     console.log('Needs auth!');
+    next();
+  } else {
+    next();
   }
   // if (to.name === 'team-members') {
   //   next();
