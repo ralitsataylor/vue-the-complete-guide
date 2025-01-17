@@ -1,11 +1,11 @@
 <template>
-  <button @click="login" v-if="!userIsAuthenticated">Login</button>
+  <button @click="login" v-if="!isAuth">Login</button>
   <button @click="logout" v-else>Logout</button>
   <p>{{ testAuth }}</p>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex/dist/vuex.cjs.js';
+import { mapActions } from 'vuex/dist/vuex.cjs.js';
 export default {
   methods: {
     ...mapActions(['login', 'logout']),
