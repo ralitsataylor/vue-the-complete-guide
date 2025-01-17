@@ -17,10 +17,13 @@ export default {
     // },
   },
   computed: {
-    ...mapGetters(['userIsAuthenticated', 'testAuth']),
-    // isAuth() {
-    //   return this.$store.getters.userIsAuthenticated;
-    // },
+    // ...mapGetters(['userIsAuthenticated', 'testAuth']),
+    isAuth() {
+      return this.$store.getters.userIsAuthenticated;
+    },
+    testAuth() {
+      return this.$store.getters['numbers/testAuth'];
+    },
   },
 };
 </script>
