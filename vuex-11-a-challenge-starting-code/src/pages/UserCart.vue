@@ -2,11 +2,11 @@
   <section>
     <h2>Your Cart</h2>
     <h3>
-      Total Amount: <base-badge mode="elegant">${{ cartTotal }}</base-badge>
+      Total Amount: <base-badge mode="elegant">${{ totalSum }}</base-badge>
     </h3>
     <ul>
       <cart-item
-        v-for="item in cartItems"
+        v-for="item in products"
         :key="item.productId"
         :prod-id="item.productId"
         :title="item.title"
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex/dist/vuex.cjs.js';
 import CartItem from '../components/cart/CartItem.vue';
 
 export default {
@@ -26,12 +27,7 @@ export default {
     CartItem,
   },
   computed: {
-    cartTotal() {
-      return this.$store.getters['cart/totalSum'];
-    },
-    cartItems() {
-      return this.$store.getters['cart/products'];
-    },
+    ...mapGetters('cart', ['totalSum', 'products']),
   },
 };
 </script>
