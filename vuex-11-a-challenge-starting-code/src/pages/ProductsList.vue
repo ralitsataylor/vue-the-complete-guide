@@ -23,6 +23,7 @@ export default {
   },
   computed: {
     products() {
+      console.log(this.$store.getters['prods/products']);
       return this.$store.getters['prods/products'];
     },
   },

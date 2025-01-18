@@ -60,7 +60,7 @@ export default {
       return state.total.toFixed(2);
     },
     quantity(state) {
-      return state.quantity;
+      return state.qty;
     },
   },
 };
