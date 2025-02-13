@@ -26,12 +26,11 @@
 </template>
 
 <script>
-import BaseButton from '../../components/ui/BaseButton.vue';
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from '../../components/coaches/CoachFilter.vue';
 
 export default {
-  components: { BaseButton, CoachItem, CoachFilter },
+  components: { CoachItem, CoachFilter },
   data() {
     return {
       activeFilters: {

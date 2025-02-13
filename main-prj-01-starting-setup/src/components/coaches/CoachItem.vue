@@ -15,12 +15,9 @@
 </template>
 
 <script>
-import BaseButton from '../ui/BaseButton.vue';
-import BaseBadge from '../ui/BaseBadge.vue';
 
 export default {
   props: ['id', 'firstName', 'lastName', 'rate', 'areas'],
-  components: { BaseButton, BaseBadge },
   computed: {
     fullName() {
       return this.firstName + '' + this.lastName;

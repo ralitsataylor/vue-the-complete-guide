@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import BaseCard from '../../components/ui/BaseCard.vue';
 export default {
   props: ['id'],
   data() {
@@ -34,7 +33,6 @@ export default {
   created() {
     this.selectedCoach = this.$store.getters['coaches/coaches'].find(coaches => coaches.id === this.id);
   },
-  components: { BaseCard },
   computed: {
     fullName() {
       return this.selectedCoach.firstName + '' + this.selectedCoach.lastName;
