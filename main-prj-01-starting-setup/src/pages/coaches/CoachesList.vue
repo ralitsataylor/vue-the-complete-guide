@@ -5,8 +5,10 @@
   <section>
     <base-card>
       <div class="controls">
-        <base-button mode="outline">Refresh</base-button>
-        <base-button v-if="!isCoach" link to="/register">Register as Coach</base-button>
+        <base-button mode="outline" @click="loadCoaches">Refresh</base-button>
+        <base-button v-if="!isCoach" link to="/register"
+          >Register as Coach</base-button
+        >
       </div>
       <ul v-if="hasCoaches">
         <coach-item
@@ -36,8 +38,8 @@ export default {
       activeFilters: {
         frontend: true,
         backend: true,
-        career: true
-      }
+        career: true,
+      },
     };
   },
   computed: {
@@ -46,7 +48,7 @@ export default {
     },
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
-      return coaches.filter(coach => {
+      return coaches.filter((coach) => {
         if (this.activeFilters.frontend && coach.areas.includes('frontend')) {
           return true;
         }
@@ -63,11 +65,17 @@ export default {
       return this.$store.getters['coaches/hasCoaches'];
     },
   },
+  created() {
+    this.loadCoaches();
+  },
   methods: {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
-    }
-  }
+    },
+    loadCoaches() {
+      this.$store.dispatch('coaches/loadCoaches');
+    },
+  },
 };
 </script>
 
