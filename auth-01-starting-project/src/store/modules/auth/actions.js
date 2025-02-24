@@ -8,15 +8,18 @@ export default {
         body: JSON.stringify({
           email: payload.email,
           password: payload.password,
-          returnSecureToken: true
-      })
-    });
+          returnSecureToken: true,
+        }),
+      }
+    );
 
     const responseData = await response.json();
 
     if (!response.ok) {
       console.log(responseData);
-      const error = new Error(responseData.message || 'Failed to authenticate.');
+      const error = new Error(
+        responseData.message || 'Failed to authenticate. Check your login data.'
+      );
       throw error;
     }
 
@@ -24,7 +27,7 @@ export default {
     context.commit('setUser', {
       token: responseData.idToken,
       userId: responseData.localId,
-      tokenExpiration: responseData.expiresIn
+      tokenExpiration: responseData.expiresIn,
     });
-  }
+  },
 };
