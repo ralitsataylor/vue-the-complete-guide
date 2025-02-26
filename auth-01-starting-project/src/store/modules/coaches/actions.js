@@ -9,8 +9,11 @@ export default {
       areas: data.areas,
     };
 
+    const token = context.rootGetters.token;
+
     const response = await fetch(
-      `https://main-project-vue-course-cc733-default-rtdb.firebaseio.com/coaches/${userId}.json`,
+      `https://main-project-vue-course-cc733-default-rtdb.firebaseio.com/coaches/${userId}.json?auth=` +
+        token,
       {
         method: 'PUT',
         body: JSON.stringify(coachData),
