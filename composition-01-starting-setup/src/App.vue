@@ -2,6 +2,7 @@
   <section class="container">
     <h2>{{ user.name }}</h2>
     <h3>{{ user.age }}</h3>
+    <button @click="setNewAge">Change Age</button>
   </section>
 </template>
 
@@ -16,12 +17,16 @@ const user = reactive({
   age: 31,
 });
 
-setTimeout(function () {
-  // user.value.name = 'Max';
-  // user.value.age = 32;
-  user.name = 'Max';
+// setTimeout(function () {
+//   // user.value.name = 'Max';
+//   // user.value.age = 32;
+//   user.name = 'Max';
+//   user.age = 32;
+// }, 2000);
+
+function setNewAge() {
   user.age = 32;
-}, 2000);
+}
 </script>
 
 <style>
