@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 
 // const userName = ref('Maximilian');
 const userAge = ref(36);
@@ -33,9 +33,22 @@ const lastName = ref('');
 // a computed (read-only) ref
 const userName = computed(() => firstName.value + ' ' + lastName.value);
 
+watch([userAge, userName], function (newValues, oldValues) {
+  console.log('Old age: ' + oldValues[0]);
+  console.log('New age: ' + newValues[0]);
+  console.log('Old name: ' + oldValues[1]);
+  console.log('New name: ' + newValues[1]);
+});
+
 function setNewAge() {
   userAge.value = 37;
 }
+
+// watch: {
+//   age(val) {
+//     console.log(val);
+//   }
+// }
 </script>
 
 <style>
