@@ -13,15 +13,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { reactive } from 'vue';
 
-const courseGoal = ref({
+const courseGoal = reactive({
   heading: 'Mastering Vue.js 3 with the Composition API and TypeScript!',
   isVisible: true,
 });
 
 function toggleVisibility() {
-  courseGoal.value.isVisible = !courseGoal.value.isVisible;
+  courseGoal.isVisible = !courseGoal.isVisible;
 }
 </script>
 
