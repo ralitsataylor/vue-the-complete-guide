@@ -4,13 +4,14 @@
 </template>
 
 <script setup>
-import { defineProps, computed } from 'vue';
+import { defineProps, computed, inject } from 'vue';
 
 const props = defineProps({
   firstName: String,
   lastName: String,
-  userAge: Number,
 });
+
+const userAge = inject('userAge');
 
 const userName = computed(() => props.firstName + ' ' + props.lastName);
 </script>
