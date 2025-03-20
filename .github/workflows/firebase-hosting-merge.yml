@@ -18,4 +18,3 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MAIN_PROJECT_VUE_COURSE_CC733 }}
           channelId: live
           projectId: main-project-vue-course-cc733
-          entryPoint: .
