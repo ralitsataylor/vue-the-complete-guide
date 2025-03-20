@@ -1,14 +1,20 @@
 <template>
   <li>
-    <h3>{{ title }}</h3>
+    <h3>{{ props.title }}</h3>
   </li>
 </template>
 
-<script>
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps(['title']);
+</script>
+
+<!-- <script>
 export default {
   props: ['title'],
 };
-</script>
+</script> -->
 
 <style scoped>
 li {

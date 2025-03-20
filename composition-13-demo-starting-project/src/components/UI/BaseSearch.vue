@@ -1,10 +1,26 @@
 <template>
   <form>
-    <input type="search" @input="search" :value="searchTerm" placeholder="Filter items" />
+    <input
+      type="search"
+      @input="search($event)"
+      :value="props.searchTerm"
+      placeholder="Filter items"
+    />
   </form>
 </template>
 
-<script>
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps(['searchTerm']);
+const emit = defineEmits(['search']);
+
+function search($event) {
+  emit('search', $event.target.value);
+}
+</script>
+
+<!-- <script>
 export default {
   props: ['searchTerm'],
   emits: ['search'],
@@ -14,7 +30,7 @@ export default {
     },
   },
 };
-</script>
+</script> -->
 
 <style scoped>
 input {

@@ -5,7 +5,18 @@
   </li>
 </template>
 
-<script>
+<script setup>
+import { defineProps, defineEmits } from 'vue';
+
+const props = defineProps(['id', 'userName']);
+const emit = defineEmits(['list-projects']);
+
+function viewProjects() {
+  emit('list-projects', props.id);
+}
+</script>
+
+<!-- <script>
 export default {
   props: ['id', 'userName'],
   emits: ['list-projects'],
@@ -15,7 +26,7 @@ export default {
     },
   },
 };
-</script>
+</script> -->
 
 <style scoped>
 li {
