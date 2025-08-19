@@ -7,7 +7,7 @@ const app = Vue.createApp({
     };
   },
   computed: {
-    buttonCption() {
+    buttonCaption() {
       return this.listVisibility ? "Hide List" : "Show List";
     },
   },
