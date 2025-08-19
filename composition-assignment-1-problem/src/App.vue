@@ -2,9 +2,11 @@
   <h2>My Course Goal</h2>
   <!-- Task 1: Output your main course goal with help of the composition API -->
   <!-- Don't hardcode it into the template, instead hardcode it into the JS code -->
-  <h3 :class="{ hidden: !isVisible }">{{ heading }}</h3>
+  <!-- <h3 :class="{ hidden: !goalVisibility }">{{ goal }}</h3> -->
+  <!-- <h3 :class="{ hidden: !courseData.goalVisibility }">{{ goal }}</h3> -->
+  <h3 :class="{ hidden: !goalVisibility }">{{ goal }}</h3>
   <!-- Task 2: Toggle (show/ hide) the goal with help of the button  -->
-  <button @click="toggleVisibility">Toggle Goal</button>
+  <button @click="toggleGoalVisibility">Toggle Goal</button>
   <!-- Task 3: Manage data in three ways -->
   <!-- => Separate refs -->
   <!-- => Ref Object -->
@@ -13,15 +15,24 @@
 </template>
 
 <!-- <script setup>
-import { reactive } from 'vue';
+import { ref } from 'vue';
+const goal = ref('Mastering Vue.js 3 with the Composition API and TypeScript!');
+const goalVisibility = ref(true);  
 
-const courseGoal = reactive({
-  heading: 'Mastering Vue.js 3 with the Composition API and TypeScript!',
-  isVisible: true,
+const courseData = ref({
+  goal: 'Mastering Vue.js 3 with the Composition API and TypeScript!',
+  goalVisibility: true,
 });
 
-function toggleVisibility() {
-  courseGoal.isVisible = !courseGoal.isVisible;
+import { reactive } from 'vue';
+const courseData = reactive({
+  goal: 'Mastering Vue.js 3 with the Composition API and TypeScript!',
+  goalVisibility: true,
+});
+
+function toggleGoalVisibility() {
+  courseData.value.goalVisibility = !courseData.value.goalVisibility;
+  courseData.goalVisibility = !courseData.goalVisibility;
 }
 </script> -->
 
@@ -29,13 +40,13 @@ function toggleVisibility() {
 export default {
   data() {
     return {
-      heading: 'Mastering Vue.js 3 with the Composition API and TypeScript!',
-      isVisible: true,
+      goal: 'Mastering Vue.js 3 with the Composition API and TypeScript!',
+      goalVisibility: true,
     };
   },
   methods: {
-    toggleVisibility() {
-      this.isVisible = !this.isVisible;
+    toggleGoalVisibility() {
+      this.goalVisibility = !this.goalVisibility;
     },
   },
 };
