@@ -19,7 +19,7 @@ import UserData from './components/UserData.vue';
 const firstName = ref('');
 const lastName = ref('');
 const lastNameInput = ref(null);
-const userAge = ref(36);
+const userAge = ref(37);
 
 // const user = reactive({
 //   name: 'Maximilian',
@@ -46,7 +46,7 @@ watch([userAge, userName], function (newValues, oldValues) {
 });
 
 function setNewAge() {
-  userAge.value = 37;
+  userAge.value = 38;
 }
 
 function setLastName() {
