@@ -1,10 +1,7 @@
 <template>
   <base-container>
     <h2>Active Users</h2>
-    <base-search
-      @search="updateSearch"
-      :search-term="enteredSearchTerm"
-    ></base-search>
+  <base-search v-model="enteredSearchTerm"></base-search>
     <div>
       <button @click="sort('asc')" :class="{ selected: sorting === 'asc' }">
         Sort Ascending
@@ -29,17 +26,23 @@
 import UserItem from './UserItem.vue';
 import { defineProps, ref, computed, watch, defineEmits } from 'vue';
 
+// Props: users array from parent
 const props = defineProps(['users']);
 defineEmits(['list-projects']);
 
+// This ref is bound to the BaseSearch input via v-model
 const enteredSearchTerm = ref('');
+// This ref is used for debounced searching
 const activeSearchTerm = ref('');
 
+// Computed property to filter users by the search term (case-insensitive)
+// This is reactive and updates when activeSearchTerm changes
 const availableUsers = computed(() => {
   let users = [];
   if (activeSearchTerm.value) {
+    const search = activeSearchTerm.value.toLowerCase();
     users = props.users.filter((usr) =>
-      usr.fullName.includes(activeSearchTerm.value)
+      usr.fullName.toLowerCase().includes(search)
     );
   } else if (props.users) {
     users = props.users;
@@ -47,9 +50,18 @@ const availableUsers = computed(() => {
   return users;
 });
 
-function updateSearch(val) {
-  enteredSearchTerm.value = val;
-}
+// function updateSearch(val) {
+//   enteredSearchTerm.value = val;
+// }
+
+// Debounce: only update activeSearchTerm if the user stops typing for 300ms
+watch(enteredSearchTerm, function (newValue) {
+  setTimeout(() => {
+    if (newValue === enteredSearchTerm.value) {
+      activeSearchTerm.value = newValue;
+    }
+  }, 300);
+});
 
 const sorting = ref(null);
 
@@ -73,14 +85,6 @@ const displayedUsers = computed(() => {
 function sort(mode) {
   sorting.value = mode;
 }
-
-watch(enteredSearchTerm, function (newValue) {
-  setTimeout(() => {
-    if (newValue === enteredSearchTerm.value) {
-      activeSearchTerm.value = newValue;
-    }
-  }, 300);
-});
 </script>
 
 <!-- <script>

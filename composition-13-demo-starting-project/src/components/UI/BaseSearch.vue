@@ -2,8 +2,8 @@
   <form>
     <input
       type="search"
+      :value="props.modelValue"
       @input="search($event)"
-      :value="props.searchTerm"
       placeholder="Filter items"
     />
   </form>
@@ -12,11 +12,15 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps(['searchTerm']);
-const emit = defineEmits(['search']);
+// This component is designed for use with v-model in Vue 3 Composition API.
+// The parent passes a value via the 'modelValue' prop, and expects updates via 'update:modelValue' events.
+const props = defineProps({ modelValue: String });
+const emit = defineEmits(['update:modelValue']);
 
+// Emit the new value whenever the user types in the input.
+// This keeps the parent in sync with the input field.
 function search($event) {
-  emit('search', $event.target.value);
+  emit('update:modelValue', $event.target.value);
 }
 </script>
 

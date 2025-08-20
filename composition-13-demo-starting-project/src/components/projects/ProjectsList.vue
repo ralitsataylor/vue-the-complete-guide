@@ -1,11 +1,7 @@
 <template>
   <base-container v-if="user">
     <h2>{{ user.fullName }}: Projects</h2>
-    <base-search
-      v-if="hasProjects"
-      @search="updateSearch"
-      :search-term="enteredSearchTerm"
-    ></base-search>
+  <base-search v-if="hasProjects" v-model="enteredSearchTerm"></base-search>
     <ul v-if="hasProjects">
       <project-item
         v-for="prj in availableProjects"
@@ -24,15 +20,20 @@
 import ProjectItem from './ProjectItem.vue';
 import { ref, defineProps, computed, watch } from 'vue';
 
+// This ref is bound to the BaseSearch input via v-model
 const enteredSearchTerm = ref('');
+// This ref is used for debounced searching
 const activeSearchTerm = ref('');
 
+// Props: user object from parent
 const props = defineProps(['user']);
 
+// Computed property to check if there are any projects to show
 const hasProjects = computed(() => {
   return props.user.projects && availableProjects.value.length > 0;
 });
 
+// Debounce: only update activeSearchTerm if the user stops typing for 300ms
 watch(enteredSearchTerm, function (newValue) {
   setTimeout(() => {
     if (newValue === enteredSearchTerm.value) {
@@ -41,15 +42,13 @@ watch(enteredSearchTerm, function (newValue) {
   }, 300);
 });
 
-// const propsWithRefs = toRefs(props);
-// const user = propsWithRefs.user;
-
-// const { user } = toRefs(props);
-
+// Reset search term when user changes
 watch(props, function () {
   enteredSearchTerm.value = '';
 });
 
+// Computed property to filter projects by the search term (case-sensitive)
+// This is reactive and updates when activeSearchTerm changes
 const availableProjects = computed(() => {
   if (activeSearchTerm.value) {
     return props.user.projects.filter((prj) =>
@@ -59,9 +58,9 @@ const availableProjects = computed(() => {
   return props.user.projects;
 });
 
-function updateSearch(val) {
-  enteredSearchTerm.value = val;
-}
+// function updateSearch(val) {
+//   enteredSearchTerm.value = val;
+// }
 </script>
 
 <!-- <script>
