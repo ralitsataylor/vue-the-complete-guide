@@ -12,16 +12,10 @@
   </section>
 </template>
 
-<script>
+<script setup>
 import { inject } from 'vue';
 
-export default {
-  setup() {
-    const loadedProducts = inject('products');
-
-    return { products: loadedProducts };
-  },
-};
+const products = inject('products');
 </script>
 
 <style scoped>

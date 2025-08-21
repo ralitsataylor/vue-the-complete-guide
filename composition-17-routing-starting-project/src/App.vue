@@ -3,45 +3,40 @@
   <router-view></router-view>
 </template>
 
-<script>
+<script setup>
 import { ref, provide } from 'vue';
-
 import TheHeader from './components/TheHeader.vue';
 
-export default {
-  components: {
-    TheHeader,
+// State: products array
+const products = ref([
+  {
+    id: 'p1',
+    title: 'A Carpet',
+    description: 'A nice looking, maybe a little bit used carpet.',
+    price: 15.99,
   },
-  setup() {
-    const products = ref([
-      {
-        id: 'p1',
-        title: 'A Carpet',
-        description: 'A nice looking, maybe a little bit used carpet.',
-        price: 15.99,
-      },
-      {
-        id: 'p2',
-        title: 'A Book',
-        description: 'You can read it. Maybe you should read it.',
-        price: 12.99,
-      },
-    ]);
-
-    function addProduct(productData) {
-      const newProduct = {
-        id: new Date().toISOString(),
-        title: productData.title,
-        description: productData.description,
-        price: productData.price,
-      };
-      products.value.push(newProduct);
-    }
-
-    provide('products', products);
-    provide('addProduct', addProduct);
+  {
+    id: 'p2',
+    title: 'A Book',
+    description: 'You can read it. Maybe you should read it.',
+    price: 12.99,
   },
-};
+]);
+
+// Method: add a new product
+function addProduct(productData) {
+  const newProduct = {
+    id: new Date().toISOString(),
+    title: productData.title,
+    description: productData.description,
+    price: productData.price,
+  };
+  products.value.push(newProduct);
+}
+
+// Provide state and method to child components
+provide('products', products);
+provide('addProduct', addProduct);
 </script>
 
 <style>
