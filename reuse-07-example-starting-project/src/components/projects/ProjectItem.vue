@@ -4,10 +4,12 @@
   </li>
 </template>
 
-<script>
-export default {
-  props: ['title'],
-};
+<script setup>
+import { defineProps, toRefs } from 'vue';
+
+// Use toRefs to destructure props while keeping reactivity
+const props = defineProps(['title']);
+const { title } = toRefs(props);
 </script>
 
 <style scoped>
