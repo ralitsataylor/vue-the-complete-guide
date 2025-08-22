@@ -12,11 +12,11 @@ export default function useSearch(items, searchProp) {
     let filteredItems = [];
     if (activeSearchTerm.value) {
       const search = activeSearchTerm.value.toLowerCase();
-      filteredItems = items.filter((item) =>
+      filteredItems = items.value.filter((item) =>
         item[searchProp].toLowerCase().includes(search)
       );
-    } else if (items) {
-      filteredItems = items;
+    } else if (items.value) {
+      filteredItems = items.value;
     }
     return filteredItems;
   });

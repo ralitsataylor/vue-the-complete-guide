@@ -17,45 +17,30 @@
 </template>
 
 <script setup>
-import ProjectItem from './ProjectItem.vue';
-import { ref, defineProps, computed, watch } from 'vue';
+import { defineProps, computed, watch, toRefs } from 'vue';
 
-// This ref is bound to the BaseSearch input via v-model
-const enteredSearchTerm = ref('');
-// This ref is used for debounced searching
-const activeSearchTerm = ref('');
+import ProjectItem from './ProjectItem.vue';
+import useSearch from '../../composables/search';
 
 // Props: user object from parent
 const props = defineProps(['user']);
 
+const { user } = toRefs(props); 
+const projects = computed(() => user.value ? user.value.projects : []);
+
+// Property names in javascript are Strings
+const { enteredSearchTerm, availableItems } = useSearch(projects, 'title');
+
 // Computed property to check if there are any projects to show
 const hasProjects = computed(() => {
-  return props.user.projects && availableProjects.value.length > 0;
+  return props.user.projects && availableItems.value.length > 0;
 });
 
-// Debounce: only update activeSearchTerm if the user stops typing for 300ms
-watch(enteredSearchTerm, function (newValue) {
-  setTimeout(() => {
-    if (newValue === enteredSearchTerm.value) {
-      activeSearchTerm.value = newValue;
-    }
-  }, 300);
-});
+
 
 // Reset search term when user changes
-watch(props, function () {
+watch(user, function () {
   enteredSearchTerm.value = '';
-});
-
-// Computed property to filter projects by the search term (case-sensitive)
-// This is reactive and updates when activeSearchTerm changes
-const availableProjects = computed(() => {
-  if (activeSearchTerm.value) {
-    return props.user.projects.filter((prj) =>
-      prj.title.includes(activeSearchTerm.value)
-    );
-  }
-  return props.user.projects;
 });
 </script>
 

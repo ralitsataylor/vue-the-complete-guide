@@ -23,16 +23,19 @@
 </template>
 
 <script setup>
+import { defineProps, ref, computed, defineEmits, toRefs } from 'vue';
+
 import UserItem from './UserItem.vue';
 import useSearch from '../../composables/search.js';
-import { defineProps, ref, computed, defineEmits } from 'vue';
 
 // Props: users array from parent
 const props = defineProps(['users']);
 defineEmits(['list-projects']);
 
+const { users } = toRefs(props);
+
 // Property names in javascript are Strings
-const { enteredSearchTerm, availableItems } = useSearch(props.users, 'fullName');
+const { enteredSearchTerm, availableItems } = useSearch(users, 'fullName');
 
 const sorting = ref(null);
 
