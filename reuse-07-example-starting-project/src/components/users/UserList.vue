@@ -23,10 +23,11 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed, defineEmits, toRefs, watch } from 'vue';
+import { defineProps, defineEmits, toRefs, watch } from 'vue';
 
 import UserItem from './UserItem.vue';
 import useSearch from '../../composables/search.js';
+import useSort from '../../composables/sort.js';
 
 // Props: users array from parent
 const props = defineProps(['users']);
@@ -35,32 +36,10 @@ defineEmits(['list-projects']);
 const { users } = toRefs(props);
 
 // Property names in javascript are Strings
+// Computed properties under the hood are just a read-only ref
 const { enteredSearchTerm, availableItems, updateSearch } = useSearch(users, 'fullName');
 
-const sorting = ref(null);
-
-const displayedUsers = computed(() => {
-  // Defensive: always return an array 
-  const items = Array.isArray(availableItems.value) ? availableItems.value : [];
-  if (!sorting.value) {
-    return items;
-  }
-  return items.slice().sort((u1, u2) => {
-    if (sorting.value === 'asc' && u1.fullName > u2.fullName) {
-      return 1;
-    } else if (sorting.value === 'asc') {
-      return -1;
-    } else if (sorting.value === 'desc' && u1.fullName > u2.fullName) {
-      return -1;
-    } else {
-      return 1;
-    }
-  });
-});
-
-function sort(mode) {
-  sorting.value = mode;
-}
+const { sorting, displayedUsers, sort } = useSort(availableItems, 'fullName');
 
 // Reset search term when user changes
 // Deep watch for array changes
