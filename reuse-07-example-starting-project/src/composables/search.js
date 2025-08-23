@@ -30,8 +30,13 @@ export default function useSearch(items, searchProp) {
     }, 300);
   });
 
+  function updateSearch(value) {
+    enteredSearchTerm.value = value;
+  }
+
   return {
     enteredSearchTerm,
     availableItems,
+    updateSearch
   };
 }

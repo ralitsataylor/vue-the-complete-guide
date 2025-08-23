@@ -4,7 +4,7 @@
   <base-search v-if="hasProjects" v-model="enteredSearchTerm"></base-search>
     <ul v-if="hasProjects">
       <project-item
-        v-for="prj in availableProjects"
+        v-for="prj in availableItems"
         :key="prj.id"
         :title="prj.title"
       ></project-item>
@@ -25,22 +25,21 @@ import useSearch from '../../composables/search';
 // Props: user object from parent
 const props = defineProps(['user']);
 
-const { user } = toRefs(props); 
-const projects = computed(() => user.value ? user.value.projects : []);
+const { user } = toRefs(props);
+// Defensive: always return an array 
+const projects = computed(() => (user.value && Array.isArray(user.value.projects)) ? user.value.projects : []);
 
 // Property names in javascript are Strings
-const { enteredSearchTerm, availableItems } = useSearch(projects, 'title');
+const { enteredSearchTerm, availableItems, updateSearch } = useSearch(projects, 'title');
 
 // Computed property to check if there are any projects to show
-const hasProjects = computed(() => {
-  return props.user.projects && availableItems.value.length > 0;
-});
-
-
+// Defensive: always return an array
+const hasProjects = computed(() => Array.isArray(user.value?.projects) && availableItems.value.length > 0);
 
 // Reset search term when user changes
 watch(user, function () {
-  enteredSearchTerm.value = '';
+  // enteredSearchTerm.value = '';
+  updateSearch('');
 });
 </script>
 

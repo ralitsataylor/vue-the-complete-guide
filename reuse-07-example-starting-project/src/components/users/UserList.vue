@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed, defineEmits, toRefs } from 'vue';
+import { defineProps, ref, computed, defineEmits, toRefs, watch } from 'vue';
 
 import UserItem from './UserItem.vue';
 import useSearch from '../../composables/search.js';
@@ -35,15 +35,16 @@ defineEmits(['list-projects']);
 const { users } = toRefs(props);
 
 // Property names in javascript are Strings
-const { enteredSearchTerm, availableItems } = useSearch(users, 'fullName');
+const { enteredSearchTerm, availableItems, updateSearch } = useSearch(users, 'fullName');
 
 const sorting = ref(null);
 
 const displayedUsers = computed(() => {
+  const items = Array.isArray(availableItems.value) ? availableItems.value : [];
   if (!sorting.value) {
-    return availableItems.value;
+    return items;
   }
-  return availableItems.value.slice().sort((u1, u2) => {
+  return items.slice().sort((u1, u2) => {
     if (sorting.value === 'asc' && u1.fullName > u2.fullName) {
       return 1;
     } else if (sorting.value === 'asc') {
@@ -59,6 +60,12 @@ const displayedUsers = computed(() => {
 function sort(mode) {
   sorting.value = mode;
 }
+
+// Reset search term when user changes
+// Deep watch for array changes
+watch(users, () => {
+  updateSearch('');
+}, { deep: true });
 </script>
 
 <style scoped>
