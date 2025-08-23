@@ -40,6 +40,7 @@ const { enteredSearchTerm, availableItems, updateSearch } = useSearch(users, 'fu
 const sorting = ref(null);
 
 const displayedUsers = computed(() => {
+  // Defensive: always return an array 
   const items = Array.isArray(availableItems.value) ? availableItems.value : [];
   if (!sorting.value) {
     return items;
